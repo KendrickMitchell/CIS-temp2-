@@ -22,14 +22,14 @@
 
 #include <mbed.h>
 #include <rtos.h>
-#include <filesystem/fat/FATFileSystem.h>
+#include "FATFileSystem.h"
 
 #include "systemInterfaces/PMIC.h"
 #include "systemInterfaces/ADCS.h"
 #include "systemInterfaces/RCS.h"
 #include "systemInterfaces/Payload.h"
 #include "systemInterfaces/IFJR.h"
-#include "drivers/SDBlockDevice.h"
+#include "SDBlockDevice.h"
 
 #define IHU_EVENT_QUEUE_SIZE 20
 
