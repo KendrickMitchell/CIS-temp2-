@@ -24,7 +24,9 @@
 #include "src/events/events.h"
 #include "tools/CISError.h"
 #include "tools/CISConsole.h"
-#include "tools/Logger.h"
+
+Serial pc(USBTX, USBRX);
+
 
 extern void (*cisEventList[EVENTS_SIZE])(uint8_t *dataBlock,
     uint16_t dataLength);
@@ -62,6 +64,10 @@ IHU* IHU::getInstance() {
   return instance;
 }
 
+void IHU::testCall(){
+  Logger::write("testCall", "/sd/IHULog.txt");
+}
+
 /**
  * Adds an event to the eventqueue
  * @param eventIndex, see events.h for constants
@@ -97,7 +103,7 @@ void IHU::initialize() {
   i2cPrimary.frequency(400000);
   spi.frequency(1000000);
 
-    result = sd.init();
+  result = sd.init();
   if (result != ERROR_SUCCESS) {
     DEBUG("IHU", "SD card initialization error: 0x%02x", result);
     CONSOLE_TX("IHU", "SD card initialization error: 0x%02x", result);
@@ -108,53 +114,54 @@ void IHU::initialize() {
   DEBUG("IHU", "Initialization complete");
   CONSOLE_TX("IHU", "Initialization complete");
 
-  Logger IHULog("/sd/log.txt");
-  IHULog.write("testing");
+  //Logger IHULog("/sd/log.txt");
+  Logger::write("testing", "/sd/IHULog.txt");
 
-  result = adcs.initialize();
-  if (result != ERROR_SUCCESS) {
-    DEBUG("IHU", "ADCS initialization error: 0x%02x", result);
-    CONSOLE_TX("IHU", "ADCS initialization error: 0x%02x", result);
-    while (true) {
-      //Give up
-    }
-  }
+  // result = adcs.initialize();
+  // if (result != ERROR_SUCCESS) {
+  //   DEBUG("IHU", "ADCS initialization error: 0x%02x", result);
+  //   CONSOLE_TX("IHU", "ADCS initialization error: 0x%02x", result);
+  //   while (true) {
+  //     //Give up
+  //   }
+  // }
 
-  result = payload.initialize();
-  if (result != ERROR_SUCCESS) {
-    DEBUG("IHU", "Payload initialization error: 0x%02x", result);
-    CONSOLE_TX("IHU", "Payload initialization error: 0x%02x", result);
-    while (true) {
-      //Give up
-    }
-  }
+  // result = payload.initialize();
+  // if (result != ERROR_SUCCESS) {
+  //   DEBUG("IHU", "Payload initialization error: 0x%02x", result);
+  //   CONSOLE_TX("IHU", "Payload initialization error: 0x%02x", result);
+  //   while (true) {
+  //     //Give up
+  //   }
+  // }
 
-  result = pmic.initialize();
-  if (result != ERROR_SUCCESS) {
-    DEBUG("IHU", "PMIC initialization error: 0x%02x", result);
-    CONSOLE_TX("IHU", "PMIC initialization error: 0x%02x", result);
-    while (true) {
-      //Give up
-    }
-  }
+  // result = pmic.initialize();
+  // if (result != ERROR_SUCCESS) {
+  //   DEBUG("IHU", "PMIC initialization error: 0x%02x", result);
+  //   CONSOLE_TX("IHU", "PMIC initialization error: 0x%02x", result);
+  //   while (true) {
+  //     //Give up
+  //   }
+  // }
 
-  result = rcs.initialize();
-  if (result != ERROR_SUCCESS) {
-    DEBUG("IHU", "RCS initialization error: 0x%02x", result);
-    CONSOLE_TX("IHU", "RCS initialization error: 0x%02x", result);
-    while (true) {
-      //Give up
-    }
-  }
+  // result = rcs.initialize();
+  // if (result != ERROR_SUCCESS) {
+  //   DEBUG("IHU", "RCS initialization error: 0x%02x", result);
+  //   CONSOLE_TX("IHU", "RCS initialization error: 0x%02x", result);
+  //   while (true) {
+  //     //Give up
+  //   }
+  // }
 
-  result = ifjr.initialize();
-  if (result != ERROR_SUCCESS) {
-    DEBUG("IHU", "RCS initialization error: 0x%02x", result);
-    CONSOLE_TX("IHU", "RCS initialization error: 0x%02x", result);
-    while (true) {
-      //Give up
-    }
-  }
+  // result = ifjr.initialize();
+  // if (result != ERROR_SUCCESS) {
+  //   DEBUG("IHU", "RCS initialization error: 0x%02x", result);
+  //   CONSOLE_TX("IHU", "RCS initialization error: 0x%02x", result);
+  //   while (true) {
+  //     //Give up
+  //   }
+  // }
+
 
 
 
@@ -164,7 +171,13 @@ void IHU::initialize() {
  * Begins an infinite loop of processing the eventQueue
  */
 void IHU::run() {
-  queue.dispatch();
+  pc.printf("in run");
+  queue.call(testCall);
+  queue.dispatch_forever();
+}
+
+void IHU::testCall2(){
+  pc.printf("testCall2");
 }
 
 /**

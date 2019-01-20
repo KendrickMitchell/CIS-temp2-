@@ -10,8 +10,9 @@ private:
 
 
 public:
+    Logger();
     Logger(std::string logname);
-    void write(std::string logMessage);
+    static void write(std::string filename, std::string logMsg);
   
 };
 

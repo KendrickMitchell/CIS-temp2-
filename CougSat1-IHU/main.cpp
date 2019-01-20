@@ -30,5 +30,6 @@ int main(void) {
   IHU* ihu = IHU::getInstance();
   ihu->initialize();
   ihu->run();
+  while(1){};
   return ERROR_SUCCESS;
 }

@@ -30,6 +30,7 @@
 #include "systemInterfaces/Payload.h"
 #include "systemInterfaces/IFJR.h"
 #include "SDBlockDevice.h"
+#include "tools/Logger.h"
 
 #define IHU_EVENT_QUEUE_SIZE 20
 
@@ -43,6 +44,8 @@ class IHU {
     void initialize();
     void run();
     void stop();
+    static void testCall();
+    static void testCall2();
 
   private:
     //Singleton class design
@@ -51,6 +54,7 @@ class IHU {
     IHU(IHU const&);
     void operator=(IHU const&);
     static IHU* instance;
+    static Logger IHULog;
 
     //System interfaces
     ADCS adcs;
@@ -68,4 +72,4 @@ class IHU {
     FATFileSystem fs;
 };
 
-#endif /* !SRC_SYSTEMINTERFACES_IHU_H_ */
+#endif /* !SRC_SYSTEMINTERFACESIHU_H_ */
