@@ -26,6 +26,7 @@
  * @return error code
  */
 int main(void) {
+
   IHU* ihu = IHU::getInstance();
   ihu->initialize();
   ihu->run();

@@ -24,6 +24,7 @@
 #include "src/events/events.h"
 #include "tools/CISError.h"
 #include "tools/CISConsole.h"
+#include "tools/Logger.h"
 
 extern void (*cisEventList[EVENTS_SIZE])(uint8_t *dataBlock,
     uint16_t dataLength);
@@ -38,6 +39,9 @@ IHU::IHU() :
     SPI_SCLK), i2cPrimary(I2C0_SDA, I2C0_SCL), i2cSecondary(I2C1_SDA, I2C1_SCL), sd(
         PC_3, PC_2, PD_1, PC_1), fs("sd", &sd), adcs(i2cPrimary), payload(spi,
         i2cSecondary, SPI_CS_CAM0), pmic(i2cPrimary), rcs(), ifjr() {
+
+
+
 }
 
 /**
@@ -93,6 +97,20 @@ void IHU::initialize() {
   i2cPrimary.frequency(400000);
   spi.frequency(1000000);
 
+    result = sd.init();
+  if (result != ERROR_SUCCESS) {
+    DEBUG("IHU", "SD card initialization error: 0x%02x", result);
+    CONSOLE_TX("IHU", "SD card initialization error: 0x%02x", result);
+    while (true) {
+      //Give up
+    }
+  }
+  DEBUG("IHU", "Initialization complete");
+  CONSOLE_TX("IHU", "Initialization complete");
+
+  Logger IHULog("/sd/log.txt");
+  IHULog.write("testing");
+
   result = adcs.initialize();
   if (result != ERROR_SUCCESS) {
     DEBUG("IHU", "ADCS initialization error: 0x%02x", result);
@@ -138,16 +156,8 @@ void IHU::initialize() {
     }
   }
 
-  result = sd.init();
-  if (result != ERROR_SUCCESS) {
-    DEBUG("IHU", "SD card initialization error: 0x%02x", result);
-    CONSOLE_TX("IHU", "SD card initialization error: 0x%02x", result);
-    while (true) {
-      //Give up
-    }
-  }
-  DEBUG("IHU", "Initialization complete");
-  CONSOLE_TX("IHU", "Initialization complete");
+
+
 }
 
 /**
