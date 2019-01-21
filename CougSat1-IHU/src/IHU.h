@@ -45,7 +45,6 @@ class IHU {
     void run();
     void stop();
     static void testCall();
-    static void testCall2();
 
   private:
     //Singleton class design

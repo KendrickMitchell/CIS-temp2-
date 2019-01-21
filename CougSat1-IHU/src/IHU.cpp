@@ -93,8 +93,7 @@ void IHU::addEventPeriodic(int ms, uint8_t eventIndex, uint8_t *dataBlock,
  * Initializes IHU hardware drivers and system interfaces
  */
 void IHU::initialize() {
-  CONSOLE_CLR
-  ;
+  CONSOLE_CLR;
   DEBUG("IHU", "Starting initialization");
   CONSOLE_TX("IHU", "Starting initialization");
   uint8_t result;
@@ -174,14 +173,11 @@ void IHU::testCall(){
  * Begins an infinite loop of processing the eventQueue
  */
 void IHU::run() {
-  pc.printf("in run");
   queue.call(testCall);
   queue.dispatch_forever();
 }
 
-void IHU::testCall2(){
-  pc.printf("testCall2");
-}
+
 
 /**
  * Requests PMIC to shutdown the system

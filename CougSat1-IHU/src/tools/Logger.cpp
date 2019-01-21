@@ -4,11 +4,13 @@ Logger::Logger(){
 
 }
 
-
+//Constructor with the filepath as an argument
+//path is the filepath including the name of the file itself
 Logger::Logger(std::string path){
     filepath = path;
 }
 
+//Writes to log file specified in constructor
 void Logger::write(std::string logMessage){
     
     //opening stream to log file
@@ -29,6 +31,8 @@ void Logger::write(std::string logMessage){
     logStream << asctime(timeinfo) << logMessage << std::endl;
     logStream.close();
 }
+
+//Static write function for use in the Event Queue
 void Logger::write(std::string logMessage, std::string logFilePath){
     
     //opening stream to log file
