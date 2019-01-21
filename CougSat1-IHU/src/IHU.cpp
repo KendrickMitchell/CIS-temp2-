@@ -64,9 +64,7 @@ IHU* IHU::getInstance() {
   return instance;
 }
 
-void IHU::testCall(){
-  Logger::write("testCall", "/sd/IHULog.txt");
-}
+
 
 /**
  * Adds an event to the eventqueue
@@ -115,7 +113,7 @@ void IHU::initialize() {
   CONSOLE_TX("IHU", "Initialization complete");
 
   //Logger IHULog("/sd/log.txt");
-  Logger::write("testing", "/sd/IHULog.txt");
+  Logger::write("testing log in initialize()", "/sd/IHULog.txt");
 
   // result = adcs.initialize();
   // if (result != ERROR_SUCCESS) {
@@ -165,6 +163,11 @@ void IHU::initialize() {
 
 
 
+}
+
+void IHU::testCall(){
+  Logger::write("testing log in testCall, called in queue", "/sd/IHULog.txt");
+  pc.printf("done writing to file");
 }
 
 /**

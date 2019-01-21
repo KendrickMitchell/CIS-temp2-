@@ -8,11 +8,11 @@ class Logger{
 private:
     std::string filepath;
 
-
 public:
     Logger();
     Logger(std::string logname);
-    static void write(std::string filename, std::string logMsg);
+    void write(std::string logMessage);
+    static void write(std::string logMessage, std::string logFilePath);
   
 };
 

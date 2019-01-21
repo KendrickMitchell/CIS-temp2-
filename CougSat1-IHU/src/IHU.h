@@ -54,7 +54,7 @@ class IHU {
     IHU(IHU const&);
     void operator=(IHU const&);
     static IHU* instance;
-    static Logger IHULog;
+    // static Logger IHULog;
 
     //System interfaces
     ADCS adcs;
