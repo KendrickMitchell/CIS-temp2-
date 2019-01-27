@@ -26,6 +26,7 @@
 #include "tools/CISConsole.h"
 
 Serial pc(USBTX, USBRX);
+DigitalOut my_led(LED1);
 
 
 extern void (*cisEventList[EVENTS_SIZE])(uint8_t *dataBlock,
@@ -113,6 +114,7 @@ void IHU::initialize() {
 
   //Logger IHULog("/sd/log.txt");
   Logger::write("testing log in initialize()", "/sd/IHULog.txt");
+  pc.printf("printing to log in initialize()");
 
   // result = adcs.initialize();
   // if (result != ERROR_SUCCESS) {
@@ -166,14 +168,32 @@ void IHU::initialize() {
 
 void IHU::testCall(){
   Logger::write("testing log in testCall, called in queue", "/sd/IHULog.txt");
-  pc.printf("done writing to file");
+  pc.printf("printing to log in testcall");
 }
 
 /**
  * Begins an infinite loop of processing the eventQueue
  */
 void IHU::run() {
-  queue.call(testCall);
+
+
+ //possible events
+// # EVENT_SHUTDOWN
+// # EVENT_IHU_PERIODIC
+// # EVENT_TALK_TO_RCS
+// # EVENT_PMIC_MESSAG
+// # EVENT_ADCS_MESSAGE
+// # EVENT_RCS_MESSAGE
+// # EVENT_IHU_MESSAGE
+// # EVENT_IFJR_MESSAGE
+// # EVENT_SEND_TO_GND 
+
+//addEventPeriodic(5000, EVENT_IHU_PERIODIC, NULL, NULL );
+//addEventPeriodic(100000, EVENT_TALK_TO_RCS, NULL, NULL );
+
+
+  testCall();
+  Logger::write("Hello", "/sd/Temp2.txt");
   queue.dispatch_forever();
 }
 

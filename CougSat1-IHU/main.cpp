@@ -27,9 +27,12 @@
  */
 int main(void) {
 
-  IHU* ihu = IHU::getInstance();
-  ihu->initialize();
-  ihu->run();
-  while(1){};
+  //IHU* ihu = IHU::getInstance();
+  IHU::getInstance()->initialize();
+  IHU::getInstance()->run();
+  while(1)
+  {
+    Logger::write("Hello", "/sd/Temp.txt");
+  }
   return ERROR_SUCCESS;
 }
