@@ -1,17 +1,15 @@
-#include <wrapper.h>
-#include <Wire.h>
+#include <main.h>
 #include <ArduCAM.h>
-#include <SPI.h>
 
 uint8_t start_capture = 0;
 
-ArduCAM myCAM(OV2640,CONFIG_CS);
+ArduCAM myCAM(OV2640,PIN_CS);
 
 void setup_camera() {
   Serial.begin(115200);
   Wire.begin(); 
 
-  pinMode(CONFIG_CS, OUTPUT);
+  pinMode(PIN_CS, OUTPUT);
 
   // initialize SPI
   SPI.begin(); 
