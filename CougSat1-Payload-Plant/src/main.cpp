@@ -1,9 +1,11 @@
 #include "main.h"
+#include "bme280.h"
+
 
 void setup() {
   bme280_setup();
 }
 
 void loop() {
-  bme280_print_serial();
+  delay(500);
 }

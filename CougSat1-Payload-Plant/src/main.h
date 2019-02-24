@@ -9,11 +9,5 @@
 // Includes
 #include <Wire.h>
 #include <SPI.h>
-
-// Declarations
-void bme280_setup();
-void bme280_print_serial();
-void setup_camera();
-void single_camera();
  
 #endif /* MAIN_H */
