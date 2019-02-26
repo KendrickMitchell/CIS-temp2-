@@ -6,7 +6,7 @@
  * satellites. This file is proprietary and confidential.                     *
  * Unauthorized copying of this file, via any medium is strictly prohibited.  *
  ******************************************************************************/
-/**
+/*
  * @file IHU.cpp
  * @author Bradley Davis
  * @date 6 Mar 2018
