@@ -42,7 +42,7 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
  }
 
-if (this->i2c.read(I2C_ADDR_ADCS, data, 8) != 0) {
+if (this->i2c.read(I2C_ADDR_ADCS, data, 6) != 0) {
 
    printf("IHU<->ADCS OrientationDataRequest: read error\n");
 
@@ -124,7 +124,7 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 7) != 0) {
 
 
 
- return ERROR_SUCCESS;
+ return ERROR_OUT_OF_MEMORY;
 }
 //////////////
 
@@ -158,7 +158,7 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 9) != 0) {
 
 
 
- return ERROR_SUCCESS;
+ return ERROR_WRITE_PROTECT;
 }
 ////////////////////////////////////
 
@@ -172,7 +172,7 @@ char command[1] = {
 
 if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
-   printf("IHU<->ADCS Draft: write error\n");
+   printf("IHU<->ADCS Drift: write error\n");
 
 
 
@@ -192,12 +192,42 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
 
 
- return ERROR_SUCCESS;
+ return ERROR_NOT_SUPPORTED;
 }
 ///////////////////////////////////////
 
+uint8_t ADCS::EndIHUManeuver(char data[]){
+
+char command[1] = {
+
+   0x11
+
+ };
+
+if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
+
+   printf("IHU<->ADCS EndIHUManeuver: write error\n");
 
 
+
+   return ERROR_NACK;
+
+ }
+
+/*if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
+
+   printf("IHU<->ADCS EndIHUManeuver: read error\n");
+
+   
+
+   return ERROR_NACK;
+
+ }*/
+
+
+
+ return ERROR_ALREADY_EXISTS;
+}
 
 
  
