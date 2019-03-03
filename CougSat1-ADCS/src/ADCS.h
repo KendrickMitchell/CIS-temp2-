@@ -49,6 +49,19 @@ class ADCS {
     void initialize();
     void run();
     void stop();
+   
+
+    uint8_t OrientationDataRequest(char data[]);
+
+    uint8_t CoilControlDataRequest(char data[]):
+
+    uint8_t OrientationCommands(char data[]);
+
+    uint8_t SatelliteManueversforSpace(char data[]);
+
+    uint8_t Drift(char data[]);
+
+    uint8_t EndIHUManeuver(char data[])
 
   private:
     //Singleton class design
