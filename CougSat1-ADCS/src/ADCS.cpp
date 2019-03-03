@@ -59,11 +59,142 @@ if (this->i2c.read(I2C_ADDR_ADCS, data, 8) != 0) {
 
 
 
+uint8_t ADCS::CoilControlDataRequest(char data[]){
+
+char command[1] = {
+
+   0x03
+
+ };
+
+if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
+
+   printf("IHU<->ADCS CoilControlDataRequest: write error\n");
+
+
+
+   return ERROR_NACK;
+
+ }
+
+if (this->i2c.read(I2C_ADDR_ADCS, data, 6) != 0) {
+
+   printf("IHU<->ADCS CoilControlDataRequest: read error\n");
+
+   
+
+   return ERROR_NACK;
+
+ }
+
+
+
+ return ERROR_SUCCESS;
 }
 
 
+////
+uint8_t ADCS::OrientationCommands(char data[]){
+
+char command[1] = {
+
+   0x05
+
+ };
+
+if (this->i2c.write(I2C_ADDR_ADCS, command, 7) != 0) {
+
+   printf("IHU<->ADCS OrientationCommands: write error\n");
 
 
+
+   return ERROR_NACK;
+
+ }
+
+/*if (this->i2c.read(I2C_ADDR_ADCS, data, 6) != 0) {
+
+   printf("IHU<->ADCS OrientationCommands: read error\n");
+
+   
+
+   return ERROR_NACK;
+
+ }*/
+
+
+
+ return ERROR_SUCCESS;
+}
+//////////////
+
+uint8_t ADCS::SatelliteManeuversforSpace(char data[]){
+
+char command[1] = {
+
+   0x07:Camera
+
+ };
+
+if (this->i2c.write(I2C_ADDR_ADCS, command, 9) != 0) {
+
+   printf("IHU<->ADCS SatelliteManeuversforSpace: write error\n");
+
+
+
+   return ERROR_NACK;
+
+ }
+
+/*if (this->i2c.read(I2C_ADDR_ADCS, data, 6) != 0) {
+
+   printf("IHU<->ADCS SatelliteManeuversforSpace: read error\n");
+
+   
+
+   return ERROR_NACK;
+
+ }*/
+
+
+
+ return ERROR_SUCCESS;
+}
+////////////////////////////////////
+
+uint8_t ADCS::Drift(char data[]){
+
+char command[1] = {
+
+   0x09
+
+ };
+
+if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
+
+   printf("IHU<->ADCS Draft: write error\n");
+
+
+
+   return ERROR_NACK;
+
+ }
+
+/*if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
+
+   printf("IHU<->ADCS Drift: read error\n");
+
+   
+
+   return ERROR_NACK;
+
+ }*/
+
+
+
+ return ERROR_SUCCESS;
+}
+///////////////////////////////////////
 
 
 
