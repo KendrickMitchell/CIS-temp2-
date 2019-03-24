@@ -42,6 +42,7 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
  }
 
+
 if (this->i2c.read(I2C_ADDR_ADCS, data, 6) != 0) {
 
    printf("IHU<->ADCS OrientationDataRequest: read error\n");
@@ -66,6 +67,7 @@ char command[1] = {
    0x03
 
  };
+
 
 if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
@@ -94,11 +96,11 @@ if (this->i2c.read(I2C_ADDR_ADCS, data, 6) != 0) {
 
 
 ////
-uint8_t ADCS::OrientationCommands(char data[]){
+uint8_t ADCS::OrientationCommands(char* data,unint16_t Roll,unint16_t Pitch,uint16_t Yaw){//////////Need revision
 
-char command[1] = {
+char command[7] = {
 
-   0x05
+   0x05,Roll,Pitch,Yaw
 
  };
 
@@ -112,7 +114,7 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 7) != 0) {
 
  }
 
-/*if (this->i2c.read(I2C_ADDR_ADCS, data, 6) != 0) {
+if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
 
    printf("IHU<->ADCS OrientationCommands: read error\n");
 
@@ -120,21 +122,23 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 7) != 0) {
 
    return ERROR_NACK;
 
- }*/
+ }
 
 
 
- return ERROR_OUT_OF_MEMORY;
+ return ERROR_SUCCESS;
 }
 //////////////
 
-uint8_t ADCS::SatelliteManeuversforSpace(char data[]){
+uint8_t ADCS::SatelliteManeuversforSpace(char* data,unint32_t RightAsc,unint32_t Declination){
 
-char command[1] = {
+char command[9] = {//////////////////////////////May need specific bit operations to graft it all together
 
-   0x07:Camera
+   0x07,RightAsc,Declination,[7:0]
 
- };
+ }; 
+
+
 
 if (this->i2c.write(I2C_ADDR_ADCS, command, 9) != 0) {
 
@@ -146,7 +150,7 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 9) != 0) {
 
  }
 
-/*if (this->i2c.read(I2C_ADDR_ADCS, data, 6) != 0) {
+if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
 
    printf("IHU<->ADCS SatelliteManeuversforSpace: read error\n");
 
@@ -154,15 +158,15 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 9) != 0) {
 
    return ERROR_NACK;
 
- }*/
+ }
 
 
 
- return ERROR_WRITE_PROTECT;
+ return ERROR_SUCCESS;
 }
 ////////////////////////////////////
 
-uint8_t ADCS::Drift(char data[]){
+uint8_t ADCS::Drift(char* data){
 
 char command[1] = {
 
@@ -180,7 +184,7 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
  }
 
-/*if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
+if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
 
    printf("IHU<->ADCS Drift: read error\n");
 
@@ -188,15 +192,15 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
    return ERROR_NACK;
 
- }*/
+ }
 
 
 
- return ERROR_NOT_SUPPORTED;
+ return ERROR_SUCCESS;
 }
 ///////////////////////////////////////
 
-uint8_t ADCS::EndIHUManeuver(char data[]){
+uint8_t ADCS::EndIHUManeuver(char* data){
 
 char command[1] = {
 
@@ -214,7 +218,7 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
  }
 
-/*if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
+if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
 
    printf("IHU<->ADCS EndIHUManeuver: read error\n");
 
@@ -222,12 +226,14 @@ if (this->i2c.write(I2C_ADDR_ADCS, command, 1) != 0) {
 
    return ERROR_NACK;
 
- }*/
+ }
 
 
 
- return ERROR_ALREADY_EXISTS;
+ return ERROR_SUCCESS;
 }
 
 
- 
+ ///Will need to revise inputs and outputs with bit manipulation
+ //command is the input and will be in the header 
+ //data will be the output and will be derived from functions that are called
