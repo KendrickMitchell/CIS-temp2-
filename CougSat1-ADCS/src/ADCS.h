@@ -55,7 +55,7 @@ class ADCS {
 
     uint8_t CoilControlDataRequest(char data[]):
 
-    uint8_t OrientationCommands(char data[],unint16_t Roll,unint16_t Pitch,uint16_t Yaw);
+    uint8_t OrientationCommands(char* data,unint16_t Roll,unint16_t Pitch,uint16_t Yaw);
 
     uint8_t SatelliteManueversforSpace(char* data,unint32_t RightAsc,unint32_t Declination);
 
