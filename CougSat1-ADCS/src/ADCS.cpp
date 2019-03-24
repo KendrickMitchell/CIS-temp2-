@@ -134,7 +134,7 @@ uint8_t ADCS::SatelliteManeuversforSpace(char* data,unint32_t RightAsc,unint32_t
 
 char command[9] = {//////////////////////////////May need specific bit operations to graft it all together
 
-   0x07,RightAsc,Declination,[7:0]
+   0x12,RightAsc,Declination,[7:0]
 
  }; 
 
@@ -237,3 +237,4 @@ if (this->i2c.read(I2C_ADDR_ADCS, data, 1) != 0) {
  ///Will need to revise inputs and outputs with bit manipulation
  //command is the input and will be in the header 
  //data will be the output and will be derived from functions that are called
+ //updated 2019 3 24
