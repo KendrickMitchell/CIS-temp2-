@@ -134,7 +134,7 @@ uint8_t ADCS::SatelliteManeuversforSpace(char* data,unint32_t RightAsc,unint32_t
 
 char command[9] = {//////////////////////////////May need specific bit operations to graft it all together
 
-   0x12,RightAsc,Declination,[7:0]
+   0x12,RightAsc,Declination
 
  }; 
 
